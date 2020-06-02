@@ -1,4 +1,4 @@
-class AddAuthorInfoFieldsToUsers < ActiveRecord::Migration
+class AddAuthorInfoFieldsToUsers < SpreeExtension::Migration[4.2]
   def change
     change_table :spree_users do |t|
       t.string :nickname
