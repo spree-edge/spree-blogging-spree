@@ -20,7 +20,7 @@ jobs:
       with:
         ruby-version: 2.7.x
     - name: Install PostgreSQL Client
-      run: sudo apt-get -yqq install libpq-dev postgresql-client sqlite3 libsqlite3-dev
+      run: sudo apt-get -yqq install libpq-dev postgresql-client sqlite3 libsqlite3-dev firefox
     - name: Install Bundler
       run: gem install bundler
     - name: Install Dependencies

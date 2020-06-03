@@ -9,27 +9,24 @@ Gem::Specification.new do |s|
 
   s.author    = 'Stefan Senk, Sumit Sharma'
   s.email     = 'forever.sumitsharma@gmail.com'
-  # s.homepage  = 'http://www.spreecommerce.com'
 
-  #s.files       = `git ls-files`.split("\n")
-  #s.test_files  = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', '> 4.0'
   s.add_dependency 'acts-as-taggable-on'
+  s.add_dependency 'spree_core', '> 4.0'
 
+  s.add_development_dependency 'appraisal'
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'factory_bot'
   s.add_development_dependency 'ffaker'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'sass-rails'
-  s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'launchy'
-  s.add_development_dependency 'appraisal'
   s.add_development_dependency 'pry-byebug'
   s.add_development_dependency 'rails-controller-testing'
+  s.add_development_dependency 'webdrivers'
 end

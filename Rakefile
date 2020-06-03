@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bundler'
 Bundler::GemHelper.install_tasks
 
@@ -6,7 +8,7 @@ require 'spree/testing_support/extension_rake'
 
 RSpec::Core::RakeTask.new
 
-task :default => [:spec]
+task default: [:spec]
 
 desc 'Generates a dummy app for testing'
 task :test_app do

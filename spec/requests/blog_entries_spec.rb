@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'BlogEntries' do
+describe 'BlogEntries', :js do
   before(:each) do
     @author = create(:user, email: 'me@example.com', nickname: 'Torony Polser')
     @author.spree_roles << Spree::Role.find_or_create_by(name: 'blogger')

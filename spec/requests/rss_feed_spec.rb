@@ -5,6 +5,10 @@ require 'spec_helper'
 describe 'RSS Feed' do
   context 'with a blog entry' do
     before(:each) do
+      Spree::AppConfiguration.class_eval do
+        preference :site_name, :boolean, default: 'Site name'
+      end
+
       @blog_entry = create(:blog_entry,
                            title: 'First blog entry',
                            body: 'Body of the blog entry.',
@@ -16,18 +20,19 @@ describe 'RSS Feed' do
 
     it 'should show the blog entry details' do
       visit '/blog/feed.rss'
-      find(:xpath, '//rss/channel/item/title').text.should == 'First blog entry'
-      find(:xpath, '//rss/channel/item/content').text.should include('Body of the blog entry.')
-      find(:xpath, '//rss/channel/item/description').text.should include('Summary of the blog entry.')
-      find(:xpath, '//rss/channel/item/guid').text.should include('/blog/2020/03/11/first-blog-entry')
-      find(:xpath, '//rss/channel/item/pubdate').text.should include('11 Mar 2020')
-      find(:xpath, '//rss/channel/item/category').text.should == 'baz'
+      expect(find(:xpath, '//rss/channel/item/title').text).to eq('First blog entry')
+      expect(find(:xpath, '//rss/channel/item/content').text).to include('Body of the blog entry.')
+      expect(find(:xpath, '//rss/channel/item/description').text).to include('Summary of the blog entry.')
+      expect(find(:xpath, '//rss/channel/item/guid').text).to include('/blog/2020/03/11/first-blog-entry')
+      expect(find(:xpath, '//rss/channel/item/pubdate').text).to include('11 Mar 2020')
+      expect(find(:xpath, '//rss/channel/item/category').text).to eq('baz')
     end
 
     it 'should include links back to the orginal page in content' do
       visit '/blog/feed.rss'
-      find(:xpath, '//rss/channel/item/content').text.should include('first appeared on')
-      find(:xpath, '//rss/channel/item/description').text.should include('Read the full article')
+
+      expect(find(:xpath, '//rss/channel/item/content').text).to include('first appeared on')
+      expect(find(:xpath, '//rss/channel/item/description').text).to include('Read the full article')
     end
   end
 
@@ -49,13 +54,15 @@ describe 'RSS Feed' do
 
     it 'should include the visible blog entries' do
       visit '/blog/feed.rss'
-      page.should have_content('First blog entry')
-      page.should have_content('Another blog entry')
+
+      expect(page).to have_content('First blog entry')
+      expect(page).to have_content('Another blog entry')
     end
 
     it 'should not include blog entries that are not visible' do
       visit '/blog/feed.rss'
-      page.should_not have_content('Invisible blog entry')
+
+      expect(page).to_not have_content('Invisible blog entry')
     end
   end
 end

@@ -7,7 +7,7 @@ FactoryBot.define do
   factory :blog_entry, class: Spree::BlogEntry do
     title { 'A Blog Entry Title' }
     body { 'A Blog Entry Body' }
-    permalink { |entry| entry.title }
+    permalink { |entry| entry.title.tr(' ', '-').downcase }
     published_at { DateTime.new(2010) }
     visible { true }
     summary { 'A Blog Entry Summary' }

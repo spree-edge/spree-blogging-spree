@@ -55,6 +55,7 @@ en:
       tab:
         blog_entries: Blog entries
     blog:
+      blog: Blog
       ago: ago
       categories: Categories
       tags: Tag cloud
