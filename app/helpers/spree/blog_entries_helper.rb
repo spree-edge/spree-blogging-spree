@@ -45,5 +45,9 @@ module Spree
         yield tag, classes[index.nan? ? 0 : index.round]
       end
     end
+
+    def blog_featured_image_url(blog_entry)
+      blog_entry.image.attached? ? main_app.url_for(blog_entry.image) : image_path('blog_empty_img.png')
+    end
   end
 end

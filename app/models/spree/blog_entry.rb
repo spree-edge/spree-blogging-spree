@@ -39,7 +39,6 @@ module Spree
         date = DateTime.new(*keys.reverse.map { |key| date[key].to_i })
       end
 
-
       time = date.to_time.in_time_zone
       where(published_at: (time.send("beginning_of_#{period}")..time.send("end_of_#{period}")))
     end

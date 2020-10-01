@@ -10,3 +10,7 @@ the installer will append this file to the app vendored assets here: 'vendor/ass
 .blog_entry_image_thumbnail img {
   vertical-align: middle;
 }
+
+.blog_image_thumbnail {
+  min-height: 200px;
+}

@@ -16,5 +16,7 @@ module SpreeBloggingSpree
     end
 
     config.to_prepare &method(:activate).to_proc
+
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
   end
 end
