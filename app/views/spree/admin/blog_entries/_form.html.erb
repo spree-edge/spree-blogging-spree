@@ -2,13 +2,13 @@
   <div class="col-md-6">
     <%= form.field_container :title, class: ['form-group'] do %>
       <%= form.label :title, Spree.t(:title) %> <span class="required">*</span><br />
-      <%= form.text_field :title, class: 'form-control' %>
+      <%= form.text_field :title, class: 'form-control', required: true %>
       <%= form.error_message_on :title %>
     <% end %>
 
     <%= form.field_container :permalink, class: ['form-group'] do %>
       <%= form.label :permalink, Spree.t(:permalink) %> <span class="required">*</span><br />
-      <%= form.text_field :permalink, class: 'form-control' %>
+      <%= form.text_field :permalink, class: 'form-control', required: true %>
       <%= form.error_message_on :permalink %>
     <% end %>
 
@@ -20,13 +20,6 @@
     <%= form.field_container :tag_list, class: ['form-group'] do %>
       <%= form.label :tag_list, Spree.t(:tag_list) %><br />
       <%= form.text_field :tag_list, value: form.object.tag_list.join(', '), class: 'form-control' %>
-    <% end %>
-
-    <% unless Rails.env.test? %>
-      <script>
-        $("#blog_entry_tag_list").select2({tags: <%= Spree::BlogEntry.tag_counts_on(:tags).map{|t| t.name }.to_json.html_safe %> });
-        $("#blog_entry_category_list").select2({tags: <%= Spree::BlogEntry.tag_counts_on(:categories).map{|t| t.name }.to_json.html_safe %> });
-      </script>
     <% end %>
   </div>
 
@@ -44,7 +37,7 @@
       <% else %>
         <% published_at = nil %>
       <% end %>
-      <%= form.text_field :published_at, value: published_at, class: 'datepicker' %>
+      <%= form.text_field :published_at, value: published_at, class: 'datepicker form-control' %>
     <% end %>
 
     <%= form.field_container :visible, class: ['form-group'] do %>
@@ -55,10 +48,10 @@
 
     <%= field_set_tag Spree.t(:blog_entry_featured_image) do %>
       <%- if @blog_entry.image.present? %>
-        <%= url_for(@blog_entry.image) %>
+        <%= image_tag(blog_featured_image_url(@blog_entry), class: 'blog_image_thumbnail img-fluid') %>
       <% end %>
 
-      <%= form.file_field :blog_entry_image %>
+      <%= form.file_field :image %>
     <% end %>
   </div>
 </div>
