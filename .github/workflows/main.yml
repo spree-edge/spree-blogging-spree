@@ -24,7 +24,7 @@ jobs:
     - name: Install Bundler
       run: sudo gem install bundler
     - name: Install Dependencies
-      run: bundle install
+      run: bundle install --path $HOME/.bundle
     - name: Set ENV Variables
       run: |
         echo ::set-env name=PGHOST::localhost
