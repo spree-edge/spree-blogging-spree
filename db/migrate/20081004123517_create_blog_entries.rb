@@ -1,4 +1,4 @@
-class CreateBlogEntries < ActiveRecord::Migration
+class CreateBlogEntries < SpreeExtension::Migration[4.2]
   def self.up
     create_table :spree_blog_entries do |t|
       t.column :title, :string

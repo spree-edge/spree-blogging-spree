@@ -24,4 +24,3 @@ jQuery(function() {
         $(this).siblings('ul:first').toggle(); 
      });                           
 });
-
