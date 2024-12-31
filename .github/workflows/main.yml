@@ -22,7 +22,7 @@ jobs:
     - name: Install PostgreSQL Client
       run: sudo apt-get -yqq install libpq-dev postgresql-client sqlite3 libsqlite3-dev firefox
     - name: Install Bundler
-      run: gem install bundler
+      run: sudo gem install bundler
     - name: Install Dependencies
       run: bundle install
     - name: Set ENV Variables
