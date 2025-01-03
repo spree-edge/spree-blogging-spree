@@ -68,6 +68,10 @@ module Spree
       end
     end
 
+    def self.ransackable_attributes(auth_object = nil)
+      ["title"]
+    end
+
     private
 
     def self.years

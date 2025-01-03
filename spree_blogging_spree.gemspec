@@ -13,8 +13,10 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
+  spree_opts = '>= 4.8.0',  '< 5.0'
+
   s.add_dependency 'acts-as-taggable-on'
-  s.add_dependency 'spree_core', '> 4.0'
+  s.add_dependency 'spree_core', spree_opts
 
   s.add_development_dependency 'appraisal'
   s.add_development_dependency 'capybara'

@@ -3,52 +3,66 @@
 <% end %>
 
 <% content_for :page_actions do %>
-  <li><%= button_link_to Spree.t(:new_blog_entry), new_object_url, :icon => 'plus' %></li>
-<% end %>
+  <%= button_link_to Spree.t('new_blog_entry'), new_object_url, { class: "btn-primary", icon: 'plus.svg', id: 'new_blog_entryd', data: {turbo:false }} %>
+<% end if can?(:create, Spree::BlogEntry) %>
+
+<div class="card p-4 mb-4 bg-light" data-hook="">
+  <%= search_form_for @search, url: spree.admin_blog_entries_path do |s| %>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <%= s.label :title, Spree.t(:title) %>
+          <%= s.text_field :title_cont, class: 'select2 js-filterable form-control' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= button Spree.t(:filter_results), 'search.svg' %>
+    </div>
+  <% end %>
+</div>
 
 <% if @blog_entries.any? %>
-  <table class="index">
-    <colgroup>
-      <col style="width: 15%">
-      <col style="width: 30%">
-      <col style="width: 35%">
-      <col style="width: 5%">
-      <col style="width: 15%">
-    </colgroup>
-    <thead>
-      <tr>
-        <th class="date"><%= Spree.t(:published_at) %></th>
-        <th class="title"><%= Spree.t(:title) %></th>
-        <th class=""><%= Spree.t(:summary) %></th>
-        <th class=""><%= Spree.t(:visible) %></th>
-        <th class="actions"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @blog_entries.each do |blog_entry| %>
-        <tr class="<%= cycle('odd', 'even') %>" id="<%= spree_dom_id blog_entry %>">
-          <td class="align-center"><%= l( blog_entry.published_at, :format => :blog_date) if blog_entry.published_at %></td>
-          <td class="align-center"><%= blog_entry.title %></td>
-          <td class="align-center"><%= blog_entry.summary.truncate(300) if blog_entry.summary %></td>
-          <td class="align-center">
-            <%= content_tag(:i, '', :class => 'fa fa-ok green') if blog_entry.visible %>
-          </td>
-          <td class="actions">
-            <%= link_to_blog_in_store blog_entry, :no_text => true, target: '_blank' %>
-            <%= link_to_edit blog_entry, :no_text => true %>
-            <%= link_to_delete blog_entry, :no_text => true %>
-          </td>
+  <div class="table-responsive border rounded bg-white">
+    <table class="table">
+      <thead class="text-muted">
+        <tr>
+          <th class="date"><%= Spree.t(:published_at) %></th>
+          <th class="title"><%= Spree.t(:title) %></th>
+          <th class=""><%= Spree.t(:summary) %></th>
+          <th class=""><%= Spree.t(:visible) %></th>
+          <th class="actions"></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
 
-  <%= paginate @blog_entries %>
-<% else %>
-  <div class="alpha twelve columns no-objects-found">
-    <%= Spree.t(:no_resource_found, resource: I18n.t(:other, scope: 'activerecord.models.spree/blog_entry')) %>,
-    <%= link_to Spree.t(:add_one), spree.new_admin_blog_entry_path %>!
+      <tbody>
+        <% @blog_entries.each do |blog_entry| %>
+          <tr class="<%= cycle('odd', 'even') %>" id="<%= spree_dom_id blog_entry %>">
+            <td class="align-center"><%= l( blog_entry.published_at, :format => :blog_date) if blog_entry.published_at %></td>
+            <td class="align-center"><%= blog_entry.title %></td>
+            <td class="align-center"><%= blog_entry.summary.truncate(300) if blog_entry.summary %></td>
+            <td class="align-center">
+              <%= content_tag(:span, '&#10003;'.html_safe, style: 'color: green; font-size: 24px;') if blog_entry.visible %>
+
+            </td>
+            <td class="actions">
+              <span class="d-flex justify-content-end">
+                <%= link_to_blog_in_store blog_entry, :no_text => true, target: '_blank' %>
+                <%= link_to_edit blog_entry, :no_text => true %>
+                <%= link_to_delete blog_entry, :no_text => true %>
+              </span>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= paginate @blog_entries %>
   </div>
+  <% else %>
+    <div class="alpha twelve columns no-objects-found">
+      <%= Spree.t(:no_resource_found, resource: I18n.t(:other, scope: 'activerecord.models.spree/blog_entry')) %>,
+      <%= link_to Spree.t(:add_one), spree.new_admin_blog_entry_path %>!
+    </div>
 <% end %>
-

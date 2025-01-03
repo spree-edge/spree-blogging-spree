@@ -54,13 +54,6 @@ en:
     admin:
       tab:
         blog_entries: Blog entries
-    blog:
-      blog: Blog
-      ago: ago
-      categories: Categories
-      tags: Tag cloud
-      recent_entries: Recent entries
-      archive: Archive
   time:
     formats:
       blog_date: "%e %b %Y"
